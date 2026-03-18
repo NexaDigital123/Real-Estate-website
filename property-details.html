@@ -4,112 +4,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>123 Ocean Drive | Luxury Estates</title>
-    <!-- Fonts & Icons -->
+    <title>Property Details | Luxury Estates</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 </head>
 
 <body>
-    <nav>...</nav> <!-- same navigation as before -->
 
-    <div class="property-details-page">
-        <!-- Image Gallery -->
-        <div class="gallery">
-            <div class="main-image">
-                <img id="mainImage" src="images/property1.jpg" alt="Main property image">
+    <div id="page-loader">
+        <div class="loader-brand">Luxury<span>Estates</span></div>
+        <div class="loader-bar-wrap">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+    <div id="progress-bar"></div>
+
+    <nav id="main-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <h2>Luxury Estates</h2>
             </div>
-            <img src="images/property1-2.jpg" alt="Property image 2"
-                onclick="document.getElementById('mainImage').src=this.src">
-            <img src="images/property1-3.jpg" alt="Property image 3"
-                onclick="document.getElementById('mainImage').src=this.src">
-            <img src="images/property1-4.jpg" alt="Property image 4"
-                onclick="document.getElementById('mainImage').src=this.src">
-            <img src="images/property1-5.jpg" alt="Property image 5"
-                onclick="document.getElementById('mainImage').src=this.src">
+            <ul class="nav-menu">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="listings.html">Listings</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="contact.html" class="btn-outline">Sign In</a>
+                <a href="listings.html" class="btn">Browse Properties</a>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Property Details Page -->
+    <div class="property-details-page" style="padding-top:90px">
+
+        <!-- Breadcrumb -->
+        <p style="color:var(--text-light);font-size:.85rem;margin-bottom:1.5rem">
+            <a href="home.html" style="color:var(--primary)">Home</a> /
+            <a href="listings.html" style="color:var(--primary)">Listings</a> /
+            <span id="pd-title-bc">Property</span>
+        </p>
+
+        <!-- Gallery -->
+        <div class="pd-gallery reveal">
+            <div class="main-img">
+                <img id="mainImage" src="villa-exterior.png" alt="Main property image">
+            </div>
+            <div class="thumb-img">
+                <img src="Card-1.jpg" alt="Property view 2">
+            </div>
+            <div class="thumb-img">
+                <img src="Card-2.jpg" alt="Property view 3">
+            </div>
         </div>
 
-        <!-- Title and Price -->
-        <div class="property-title">
-            <h1>123 Ocean Drive, Malibu, CA</h1>
-            <div class="property-price">$2,450,000</div>
+        <!-- Title & Price -->
+        <div class="pd-header reveal">
+            <h1 id="pd-title">Loading…</h1>
+            <div class="pd-price" id="pd-price">—</div>
         </div>
 
         <!-- Quick Meta -->
-        <div class="property-meta">
-            <span><i class="fas fa-bed"></i> 4 Beds</span>
-            <span><i class="fas fa-bath"></i> 3 Baths</span>
-            <span><i class="fas fa-vector-square"></i> 3,200 sqft</span>
-            <span><i class="fas fa-calendar"></i> Built: 2018</span>
+        <div class="pd-meta reveal" id="pd-meta">
+            <span><i class="fas fa-bed"></i> Loading…</span>
         </div>
 
-        <!-- Description and Agent Sidebar -->
-        <div class="description-agent">
-            <div class="description">
+        <!-- Description + Agent Sidebar -->
+        <div class="pd-grid">
+            <div class="pd-description reveal-left">
                 <h2>About This Property</h2>
-                <p>Stunning contemporary villa perched on the cliffs of Malibu with breathtaking ocean views. This
-                    architectural masterpiece features floor-to-ceiling windows, open concept living, chef's kitchen
-                    with top-of-the-line appliances, and a spacious master suite with private terrace. Outside, enjoy
-                    the infinity pool, spa, and direct access to the beach trail.</p>
+                <div id="pd-desc">
+                    <p style="color:var(--text-light)">Loading property details…</p>
+                </div>
                 <h3>Key Features</h3>
-                <ul class="features">
-                    <li><i class="fas fa-check"></i> Oceanfront location</li>
-                    <li><i class="fas fa-check"></i> Infinity pool & spa</li>
-                    <li><i class="fas fa-check"></i> Chef's kitchen</li>
-                    <li><i class="fas fa-check"></i> 3-car garage</li>
-                    <li><i class="fas fa-check"></i> Smart home system</li>
-                    <li><i class="fas fa-check"></i> Private beach access</li>
+                <ul class="features-list" id="pd-features">
+                    <li><i class="fas fa-spinner fa-spin"></i> Loading…</li>
                 </ul>
             </div>
-            <div class="agent-card">
-                <img src="images/agent.jpg" alt="John Smith">
-                <h3>John Smith</h3>
-                <p>Senior Luxury Agent</p>
-                <p><i class="fas fa-phone"></i> (310) 555-0199</p>
-                <p><i class="fas fa-envelope"></i> john@luxuryestates.com</p>
-                <a href="#" class="btn">Contact Agent</a>
+
+            <div class="pd-sidebar reveal-right">
+                <!-- Agent Card -->
+                <div class="agent-card">
+                    <img id="agent-photo" src="wmremove-transformed.jpeg" alt="Agent">
+                    <h3 id="agent-name">John Smith</h3>
+                    <p class="agent-title" id="agent-title">Senior Luxury Agent</p>
+                    <div class="agent-contact">
+                        <p id="agent-phone"><i class="fas fa-phone"></i> (310) 555-0199</p>
+                        <p id="agent-email"><i class="fas fa-envelope"></i> john@luxuryestates.com</p>
+                    </div>
+                    <a href="contact.html" class="btn"><i class="fas fa-envelope"></i> Contact Agent</a>
+                </div>
+
+                <!-- Mortgage Calculator -->
+                <div class="mortgage-calculator">
+                    <h2>Mortgage Calculator</h2>
+                    <p>Estimate your monthly payment</p>
+                    <div class="calc-grid">
+                        <div class="calc-input">
+                            <label>Loan Amount ($)</label>
+                            <input type="number" id="loanAmount" value="1960000">
+                        </div>
+                        <div class="calc-input">
+                            <label>Down Payment ($)</label>
+                            <input type="number" id="downPayment" value="490000">
+                        </div>
+                        <div class="calc-input">
+                            <label>Interest Rate (%)</label>
+                            <input type="number" id="interestRate" value="6.5" step="0.1">
+                        </div>
+                        <div class="calc-input">
+                            <label>Loan Term (yrs)</label>
+                            <input type="number" id="loanTerm" value="30">
+                        </div>
+                    </div>
+                    <button class="btn" id="calculateBtn" style="width:100%;justify-content:center;margin-top:.5rem">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                    <div class="calc-result" id="calcResult" style="margin-top:1.25rem">
+                        Monthly Payment: <span>—</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Mortgage Calculator Section -->
-        <div class="mortgage-calculator">
-            <h2>Mortgage Calculator</h2>
-            <p>Estimate your monthly payment</p>
-            <div class="calculator-form">
-                <div class="calc-input">
-                    <label>Loan Amount ($)</label>
-                    <input type="number" id="loanAmount" value="2000000">
-                </div>
-                <div class="calc-input">
-                    <label>Interest Rate (%)</label>
-                    <input type="number" id="interestRate" value="4.5" step="0.1">
-                </div>
-                <div class="calc-input">
-                    <label>Loan Term (years)</label>
-                    <input type="number" id="loanTerm" value="30">
-                </div>
-                <div class="calc-input">
-                    <label>Down Payment ($)</label>
-                    <input type="number" id="downPayment" value="450000">
+        <!-- Similar Properties -->
+        <div class="similar-properties">
+            <h2>Similar Properties</h2>
+            <div class="properties-grid" id="similar-grid" style="margin-bottom:0">
+                <!-- Populated by JS if needed -->
+            </div>
+            <div style="text-align:center;margin-top:2rem">
+                <a href="listings.html" class="btn">View All Properties <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+    </div><!-- /property-details-page -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Luxury Estates</h3>
+                <p>Your trusted partner in luxury real estate since 2005.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-            <button class="btn" id="calculateBtn">Calculate</button>
-            <div class="calc-result" id="calcResult">
-                Monthly Payment: <span>$0</span>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="listings.html">Listings</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
             </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-map-marker-alt" style="color:var(--primary);margin-right:.5rem"></i> 123 Rodeo
+                    Drive, Beverly Hills, CA</p>
+                <p><i class="fas fa-phone" style="color:var(--primary);margin-right:.5rem"></i> (310) 555-0123</p>
+                <p><i class="fas fa-envelope" style="color:var(--primary);margin-right:.5rem"></i>
+                    info@luxuryestates.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>Office Hours</h4>
+                <p>Mon – Fri: 9am – 6pm</p>
+                <p>Saturday: 10am – 4pm</p>
+                <p>Sunday: By Appointment</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Luxury Estates. All rights reserved.</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <button id="back-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+    <div class="cookie-bar" id="cookieBanner">
+        <p class="cookie-txt">We use cookies to enhance your experience. <a href="#">Learn more</a>.</p>
+        <div class="cookie-btns">
+            <button class="cookie-accept" id="cookieAccept">Accept</button>
+            <button class="cookie-decline" id="cookieDecline">Decline</button>
         </div>
     </div>
-
-    <footer>...</footer>
-
     <script src="main.js"></script>
+    <script src="server.js"></script>
 </body>
 
 </html>
