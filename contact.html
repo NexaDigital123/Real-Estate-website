@@ -5,22 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | Luxury Estates</title>
-    <!-- Google Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav>
+
+    <div id="page-loader">
+        <div class="loader-brand">Luxury<span>Estates</span></div>
+        <div class="loader-bar-wrap">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+    <div id="progress-bar"></div>
+
+    <nav id="main-nav">
         <div class="nav-container">
             <div class="logo">
                 <h2>Luxury Estates</h2>
@@ -35,98 +39,138 @@
                 <a href="contact.html" class="btn-outline">Sign In</a>
                 <a href="listings.html" class="btn">Browse Properties</a>
             </div>
-            <button class="nav-toggle">☰</button>
+            <button class="nav-toggle" aria-label="Toggle menu">☰</button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Contact Hero -->
     <section class="contact-hero">
-        <h1>Get In Touch</h1>
+        <div class="page-hero-content reveal">
+            <p class="hero-breadcrumb"><a href="home.html">Home</a> / Contact</p>
+            <h1>Get In Touch</h1>
+            <p>Our team is ready to help you find your perfect home</p>
+        </div>
     </section>
 
-    <!-- Main Contact Section -->
+    <!-- Contact Section -->
     <div class="contact-section">
-        <!-- Left: Contact Info -->
-        <div class="contact-info">
+        <!-- Left: Info -->
+        <div class="contact-info reveal-left">
+            <span class="section-eyebrow">Reach Out</span>
             <h2>We're Here to Help</h2>
+
             <div class="info-item">
                 <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                 <div class="info-text">
                     <h3>Head Office</h3>
-                    <p>123 Main Street, Suite 100<br>Los Angeles, CA 90210</p>
+                    <p>123 Rodeo Drive, Suite 500<br>Beverly Hills, CA 90210</p>
                 </div>
             </div>
             <div class="info-item">
                 <div class="info-icon"><i class="fas fa-phone"></i></div>
                 <div class="info-text">
                     <h3>Phone</h3>
-                    <p>Main: (310) 555-0123<br>Toll-Free: (800) 555-0199</p>
+                    <p>Main: <a href="tel:+13105550123" style="color:var(--primary)">(310) 555-0123</a><br>Toll-Free: <a
+                            href="tel:+18005550199" style="color:var(--primary)">(800) 555-0199</a></p>
                 </div>
             </div>
             <div class="info-item">
                 <div class="info-icon"><i class="fas fa-envelope"></i></div>
                 <div class="info-text">
                     <h3>Email</h3>
-                    <p>info@luxuryestates.com<br>support@luxuryestates.com</p>
+                    <p><a href="mailto:info@luxuryestates.com"
+                            style="color:var(--primary)">info@luxuryestates.com</a><br><a
+                            href="mailto:support@luxuryestates.com"
+                            style="color:var(--primary)">support@luxuryestates.com</a></p>
                 </div>
             </div>
+
             <div class="office-hours">
                 <h3>Office Hours</h3>
-                <p>Monday - Friday: 9:00 AM – 6:00 PM</p>
-                <p>Saturday: 10:00 AM – 4:00 PM</p>
-                <p>Sunday: By Appointment</p>
+                <p><i class="fas fa-clock" style="color:var(--primary);margin-right:.5rem"></i> Monday – Friday: 9:00 AM
+                    – 6:00 PM</p>
+                <p><i class="fas fa-clock" style="color:var(--primary);margin-right:.5rem"></i> Saturday: 10:00 AM –
+                    4:00 PM</p>
+                <p><i class="fas fa-calendar" style="color:var(--primary);margin-right:.5rem"></i> Sunday: By
+                    Appointment Only</p>
+            </div>
+
+            <!-- Quick Contact Stats -->
+            <div style="display:flex;gap:2rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)">
+                <div style="text-align:center">
+                    <div
+                        style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--primary);font-weight:700">
+                        &lt; 2hr</div>
+                    <div style="font-size:.8rem;color:var(--text-light);font-weight:600">Response Time</div>
+                </div>
+                <div style="text-align:center">
+                    <div
+                        style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--primary);font-weight:700">
+                        24/7</div>
+                    <div style="font-size:.8rem;color:var(--text-light);font-weight:600">Online Support</div>
+                </div>
             </div>
         </div>
 
-        <!-- Right: Contact Form -->
-        <div class="contact-form">
+        <!-- Right: Form -->
+        <div class="contact-form-box reveal-right">
             <h2>Send Us a Message</h2>
-            <form id="contactForm">
+            <p>Fill in your details and one of our agents will respond within 2 hours.</p>
+            <form id="contactForm" novalidate>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="firstName">First Name *</label>
-                        <input type="text" id="firstName" name="firstName" required>
+                        <input type="text" id="firstName" name="firstName" placeholder="John" required
+                            autocomplete="given-name">
                     </div>
                     <div class="form-group">
                         <label for="lastName">Last Name *</label>
-                        <input type="text" id="lastName" name="lastName" required>
+                        <input type="text" id="lastName" name="lastName" placeholder="Smith" required
+                            autocomplete="family-name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" placeholder="john@email.com" required
+                        autocomplete="email">
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" name="phone">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="(310) 555-0000" autocomplete="tel">
                 </div>
                 <div class="form-group">
-                    <label for="inquiryType">Inquiry Type</label>
+                    <label for="inquiryType">How Can We Help?</label>
                     <select id="inquiryType" name="inquiryType">
                         <option>General Question</option>
                         <option>Property Inquiry</option>
                         <option>Sell My Home</option>
                         <option>Schedule a Tour</option>
+                        <option>Market Analysis</option>
+                        <option>Investment Advice</option>
                         <option>Other</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="message">Message *</label>
-                    <textarea id="message" name="message" required></textarea>
+                    <textarea id="message" name="message" placeholder="Tell us about your real estate goals…"
+                        required></textarea>
                 </div>
-                <button type="submit" class="btn btn-large">Send Message</button>
-                <p id="formStatus" style="margin-top: 1rem; font-weight: 500;"></p>
+                <div class="form-submit-wrap">
+                    <button type="submit" class="btn btn-large">Send Message <i class="fas fa-arrow-right"></i></button>
+                    <p id="formStatus"></p>
+                </div>
             </form>
         </div>
     </div>
 
     <!-- Map Section -->
     <div class="map-section">
-        <h2>Find Us</h2>
-        <div class="map-container">
+        <h2 class="reveal">Find Our Office</h2>
+        <div class="map-container reveal">
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.052692552581!2d-118.243683684782!3d34.05223422056595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA%2090210!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
-                allowfullscreen="" loading="lazy">
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.052692552581!2d-118.243683684782!3d34.05223422056595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sBeverly+Hills%2C+CA+90210!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                title="Luxury Estates office location">
             </iframe>
         </div>
     </div>
@@ -136,11 +180,11 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Luxury Estates</h3>
-                <p>Your trusted partner in luxury real estate.</p>
+                <p>Your trusted partner in luxury real estate since 2005.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
@@ -150,27 +194,39 @@
                     <li><a href="listings.html">Listings</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="#">Blog</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h4>Contact Info</h4>
-                <p><i class="fas fa-map-marker-alt"></i> 123 Main Street, Suite 100<br>Los Angeles, CA 90210</p>
-                <p><i class="fas fa-phone"></i> (310) 555-0123</p>
-                <p><i class="fas fa-envelope"></i> info@luxuryestates.com</p>
+                <p><i class="fas fa-map-marker-alt" style="color:var(--primary);margin-right:.5rem"></i> 123 Rodeo
+                    Drive, Beverly Hills, CA</p>
+                <p><i class="fas fa-phone" style="color:var(--primary);margin-right:.5rem"></i> (310) 555-0123</p>
+                <p><i class="fas fa-envelope" style="color:var(--primary);margin-right:.5rem"></i>
+                    info@luxuryestates.com</p>
             </div>
             <div class="footer-section">
                 <h4>Office Hours</h4>
-                <p>Mon-Fri: 9am - 6pm<br>Sat: 10am - 4pm<br>Sun: By Appointment</p>
+                <p>Mon – Fri: 9am – 6pm</p>
+                <p>Saturday: 10am – 4pm</p>
+                <p>Sunday: By Appointment</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Luxury Estates. All rights reserved.</p>
+            <p>© 2025 Luxury Estates. All rights reserved.</p>
             <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
         </div>
     </footer>
 
+    <button id="back-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+    <div class="cookie-bar" id="cookieBanner">
+        <p class="cookie-txt">We use cookies to enhance your experience. <a href="#">Learn more</a>.</p>
+        <div class="cookie-btns">
+            <button class="cookie-accept" id="cookieAccept">Accept</button>
+            <button class="cookie-decline" id="cookieDecline">Decline</button>
+        </div>
+    </div>
     <script src="main.js"></script>
+    <script src="server.js"></script>
 </body>
 
 </html>
