@@ -7,12 +7,12 @@ const API = 'http://localhost:3000/api';
 
 /* ── Static fallback data (used when server isn't running) ── */
 const STATIC_PROPERTIES = [
-    { id: 1, title: 'Oceanfront Cliff Villa', address: '123 Ocean Drive, Malibu, CA', price: 2450000, beds: 4, baths: 3, sqft: 3200, status: 'For Sale', type: 'Villa', image: 'villa-exterior.png' },
-    { id: 2, title: 'Manhattan Luxury Penthouse', address: '500 Fifth Avenue, New York, NY', price: 3850000, beds: 3, baths: 3.5, sqft: 2800, status: 'For Sale', type: 'Penthouse', image: 'property2.jpg' },
-    { id: 3, title: 'Waterfront Modern Estate', address: '45 Lake Shore Drive, Miami, FL', price: 5200000, beds: 5, baths: 4.5, sqft: 4500, status: 'For Sale', type: 'Estate', image: 'property3.jpg' },
-    { id: 4, title: 'Historic Back Bay Mansion', address: '77 Commonwealth Ave, Boston, MA', price: 4500000, beds: 6, baths: 5, sqft: 5800, status: 'For Sale', type: 'Mansion', image: 'property4.jpg' },
-    { id: 5, title: 'Mountain Cliff Retreat', address: '789 Summit Ridge, Aspen, CO', price: 1850000, beds: 4, baths: 3, sqft: 2900, status: 'For Sale', type: 'Retreat', image: 'property5.jpg' },
-    { id: 6, title: 'Sunset Oceanfront Villa', address: '321 Beachfront Ave, Malibu, CA', price: 6800000, beds: 5, baths: 5, sqft: 5200, status: 'For Sale', type: 'Villa', image: 'property6.jpg' }
+    { id: 1, title: 'Oceanfront Cliff Villa', address: '123 Ocean Drive, Malibu, CA', price: 2450000, beds: 4, baths: 3, sqft: 3200, status: 'For Sale', type: 'Villa', image: 'villa-exterior.webp' },
+    { id: 2, title: 'Manhattan Luxury Penthouse', address: '500 Fifth Avenue, New York, NY', price: 3850000, beds: 3, baths: 3.5, sqft: 2800, status: 'For Sale', type: 'Penthouse', image: 'property2.webp' },
+    { id: 3, title: 'Waterfront Modern Estate', address: '45 Lake Shore Drive, Miami, FL', price: 5200000, beds: 5, baths: 4.5, sqft: 4500, status: 'For Sale', type: 'Estate', image: 'property3.webp' },
+    { id: 4, title: 'Historic Back Bay Mansion', address: '77 Commonwealth Ave, Boston, MA', price: 4500000, beds: 6, baths: 5, sqft: 5800, status: 'For Sale', type: 'Mansion', image: 'property4.webp' },
+    { id: 5, title: 'Mountain Cliff Retreat', address: '789 Summit Ridge, Aspen, CO', price: 1850000, beds: 4, baths: 3, sqft: 2900, status: 'For Sale', type: 'Retreat', image: 'property5.webp' },
+    { id: 6, title: 'Sunset Oceanfront Villa', address: '321 Beachfront Ave, Malibu, CA', price: 6800000, beds: 5, baths: 5, sqft: 5200, status: 'For Sale', type: 'Villa', image: 'property6.webp' }
 ];
 
 /* ── Helper: fetch with static fallback ─────────────────────── */
@@ -48,7 +48,7 @@ function buildCard(p, detailPath = 'property-details.html') {
     return `
   <div class="property-card reveal" data-id="${p.id}">
     <div class="property-image">
-      <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.src='Card-1.jpg'">
+      <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.src='Card-1.webp'">
       <span class="property-tag">${p.status || 'For Sale'}</span>
       <button class="property-wishlist" aria-label="Save property" onclick="toggleWishlist(this, ${p.id})">
         <i class="far fa-heart"></i>
@@ -93,12 +93,28 @@ function toggleWishlist(btn, id) {
 document.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
-    // ── Page Loader ────────────────────────────────────────── //
+    // ── Page Loader FIX ────────────────────────────────────── //
     const loader = document.getElementById('page-loader');
     if (loader) {
-        window.addEventListener('load', () => {
-            setTimeout(() => loader.classList.add('hide'), 1400);
-        });
+        const hideLoader = () => {
+            setTimeout(() => {
+                loader.classList.add('hide');
+                // Ensure it's removed from display after transition
+                setTimeout(() => { loader.style.display = 'none'; }, 600);
+            }, 1000);
+        };
+
+        // Trigger when everything is loaded
+        window.addEventListener('load', hideLoader);
+
+        // FAIL-SAFE: If window.load doesn't fire (due to missing image/asset), 
+        // hide loader anyway after 4 seconds so the user isn't stuck.
+        setTimeout(() => {
+            if (!loader.classList.contains('hide')) {
+                console.warn("Loader fail-safe triggered.");
+                hideLoader();
+            }
+        }, 4000);
     }
 
     // ── Progress bar ───────────────────────────────────────── //
@@ -129,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
             toggle.setAttribute('aria-expanded', String(open));
         });
         document.addEventListener('click', e => {
-            if (!nav.contains(e.target) && navMenu.classList.contains('show')) {
+            if (nav && !nav.contains(e.target) && navMenu.classList.contains('show')) {
                 navMenu.classList.remove('show');
                 toggle.innerHTML = '☰';
             }
@@ -193,33 +209,42 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { threshold: 0.4 });
     document.querySelectorAll('.stats, .about-stats, .hero-stats-strip').forEach(el => counterObs.observe(el));
 
-    // ── GSAP Animations ────────────────────────────────────── //
+    // ── GSAP Animations Safety ────────────────────────────── //
     if (typeof gsap !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
         // Stagger property cards on scroll
-        gsap.utils.toArray('.property-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: { trigger: card, start: 'top 88%', once: true },
-                y: 40, opacity: 0, duration: 0.7, delay: i * 0.1, ease: 'power2.out'
+        const propertyCards = gsap.utils.toArray('.property-card');
+        if (propertyCards.length > 0) {
+            propertyCards.forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: { trigger: card, start: 'top 88%', once: true },
+                    y: 40, opacity: 0, duration: 0.7, delay: i * 0.1, ease: 'power2.out'
+                });
             });
-        });
+        }
 
         // Steps entrance
-        gsap.utils.toArray('.step').forEach((step, i) => {
-            gsap.from(step, {
-                scrollTrigger: { trigger: step, start: 'top 85%', once: true },
-                y: 30, opacity: 0, duration: 0.6, delay: i * 0.12, ease: 'power2.out'
+        const steps = gsap.utils.toArray('.step');
+        if (steps.length > 0) {
+            steps.forEach((step, i) => {
+                gsap.from(step, {
+                    scrollTrigger: { trigger: step, start: 'top 85%', once: true },
+                    y: 30, opacity: 0, duration: 0.6, delay: i * 0.12, ease: 'power2.out'
+                });
             });
-        });
+        }
 
         // Section headings
-        gsap.utils.toArray('.section-title h2').forEach(h => {
-            gsap.from(h, {
-                scrollTrigger: { trigger: h, start: 'top 88%', once: true },
-                y: 20, opacity: 0, duration: 0.7, ease: 'power3.out'
+        const headings = gsap.utils.toArray('.section-title h2');
+        if (headings.length > 0) {
+            headings.forEach(h => {
+                gsap.from(h, {
+                    scrollTrigger: { trigger: h, start: 'top 88%', once: true },
+                    y: 20, opacity: 0, duration: 0.7, ease: 'power3.out'
+                });
             });
-        });
+        }
 
         // Button hover micro-interaction
         document.querySelectorAll('.btn, .btn-outline').forEach(btn => {
@@ -236,33 +261,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (trackEl) {
         const slides = trackEl.querySelectorAll('.testimonial');
-        let cur = 0, timer;
+        if (slides.length > 0) {
+            let cur = 0, timer;
 
-        if (dotsEl) {
-            slides.forEach((_, i) => {
-                const d = document.createElement('div');
-                d.className = 'sdot' + (i === 0 ? ' on' : '');
-                d.onclick = () => goSlide(i);
-                dotsEl.appendChild(d);
-            });
+            if (dotsEl) {
+                slides.forEach((_, i) => {
+                    const d = document.createElement('div');
+                    d.className = 'sdot' + (i === 0 ? ' on' : '');
+                    d.onclick = () => goSlide(i);
+                    dotsEl.appendChild(d);
+                });
+            }
+
+            function getW() { return slides[0].offsetWidth + 24; }
+            function goSlide(n) {
+                cur = ((n % slides.length) + slides.length) % slides.length;
+                trackEl.style.transform = `translateX(-${cur * getW()}px)`;
+                if (dotsEl) dotsEl.querySelectorAll('.sdot').forEach((d, i) => d.classList.toggle('on', i === cur));
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => { goSlide(cur - 1); resetTimer(); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { goSlide(cur + 1); resetTimer(); });
+
+            let tsX = 0;
+            trackEl.addEventListener('touchstart', e => tsX = e.touches[0].clientX, { passive: true });
+            trackEl.addEventListener('touchend', e => { if (Math.abs(tsX - e.changedTouches[0].clientX) > 50) goSlide(tsX > e.changedTouches[0].clientX ? cur + 1 : cur - 1); }, { passive: true });
+            window.addEventListener('resize', () => goSlide(cur), { passive: true });
+            function resetTimer() { clearInterval(timer); timer = setInterval(() => goSlide(cur + 1), 5500); }
+            resetTimer();
         }
-
-        function getW() { return slides[0].offsetWidth + 24; }
-        function goSlide(n) {
-            cur = ((n % slides.length) + slides.length) % slides.length;
-            trackEl.style.transform = `translateX(-${cur * getW()}px)`;
-            if (dotsEl) dotsEl.querySelectorAll('.sdot').forEach((d, i) => d.classList.toggle('on', i === cur));
-        }
-
-        if (prevBtn) prevBtn.addEventListener('click', () => { goSlide(cur - 1); resetTimer(); });
-        if (nextBtn) nextBtn.addEventListener('click', () => { goSlide(cur + 1); resetTimer(); });
-
-        let tsX = 0;
-        trackEl.addEventListener('touchstart', e => tsX = e.touches[0].clientX, { passive: true });
-        trackEl.addEventListener('touchend', e => { if (Math.abs(tsX - e.changedTouches[0].clientX) > 50) goSlide(tsX > e.changedTouches[0].clientX ? cur + 1 : cur - 1); }, { passive: true });
-        window.addEventListener('resize', () => goSlide(cur), { passive: true });
-        function resetTimer() { clearInterval(timer); timer = setInterval(() => goSlide(cur + 1), 5500); }
-        resetTimer();
     }
 
     // ── Newsletter form ────────────────────────────────────── //
@@ -330,6 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (el) el.addEventListener('input', calcMortgage);
         });
     }
+
     function calcMortgage() {
         const loan = parseFloat(document.getElementById('loanAmount')?.value) || 0;
         const rate = parseFloat(document.getElementById('interestRate')?.value) || 0;
@@ -456,9 +484,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function loadPropertyDetails(id) {
         const data = await apiFetch('/properties/' + id);
-        const p = data ? data.data : { ...STATIC_PROPERTIES.find(x => x.id === Number(id)) || STATIC_PROPERTIES[0], agent: { name: 'John Smith', title: 'Senior Luxury Agent', phone: '(310) 555-0199', email: 'john@luxuryestates.com', photo: 'wmremove-transformed.jpeg' } };
+        const p = data ? data.data : { ...STATIC_PROPERTIES.find(x => x.id === Number(id)) || STATIC_PROPERTIES[0], agent: { name: 'John Smith', title: 'Senior Luxury Agent', phone: '(310) 555-0199', email: 'john@luxuryestates.com', photo: 'Emp.webp' } };
 
-        const pdGallery = document.getElementById('pd-gallery');
+        // IDs of elements that might be missing on some pages
         const pdTitle = document.getElementById('pd-title');
         const pdPrice = document.getElementById('pd-price');
         const pdMeta = document.getElementById('pd-meta');
@@ -474,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (pdTitle) pdTitle.textContent = p.title || p.address;
         if (pdPrice) pdPrice.textContent = '$' + Number(p.price).toLocaleString();
-        if (mainImage) mainImage.src = p.image || p.images?.[0] || 'villa-exterior.png';
+        if (mainImage) mainImage.src = p.image || p.images?.[0] || 'villa-exterior.webp';
         if (loanAmount) loanAmount.value = Math.round(p.price * 0.8);
 
         if (pdMeta) pdMeta.innerHTML = `
